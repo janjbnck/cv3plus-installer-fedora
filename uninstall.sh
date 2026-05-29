@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e
 
-printf %"$(tput cols)"s | tr " " "-"
+COLS="$(tput cols 2>/dev/null || echo 80)"
+
+printf '%*s' "$COLS" '' | tr ' ' '-'
 echo "Removing Dell ControlVault3 Plus Driver"
-printf %"$(tput cols)"s | tr " " "-"
+printf '%*s' "$COLS" '' | tr ' ' '-'
 echo -e "\n"
 
 read -p "Do you really want to delete the Dell ControlVault3 Plus driver? (y/N): " removal_confirmation

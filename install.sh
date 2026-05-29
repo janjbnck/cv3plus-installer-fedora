@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e
 
-printf %"$(tput cols)"s | tr " " "-"
+COLS="$(tput cols 2>/dev/null || echo 80)"
+
+printf '%*s' "$COLS" '' | tr ' ' '-'
 echo "Installing Dell ControlVault3 Plus Driver"
-printf %"$(tput cols)"s | tr " " "-"
+printf '%*s' "$COLS" '' | tr ' ' '-'
 echo -e "\n"
 
 read -p "Do you really want to install the latest Dell ControlVault3 Plus driver? (y/N): " install_confirmation
@@ -11,6 +13,7 @@ read -p "Do you really want to install the latest Dell ControlVault3 Plus driver
 case $install_confirmation in
     y | Y | yes | Yes | YES)
         echo ""
+        sudo dnf install dnf-plugins-core -y
         sudo dnf copr enable grahamwhiteuk/libfprint-tod -y
         sudo dnf install tar curl fprintd fprintd-pam libfprint-tod -y --allowerasing
 
