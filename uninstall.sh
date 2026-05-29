@@ -6,9 +6,9 @@ echo "Removing Dell ControlVault3 Plus Driver"
 printf %"$(tput cols)"s | tr " " "-"
 echo -e "\n"
 
-read -p "Do you really want to delete the Dell ControlVault3 Plus driver? (y/N): " confirmation
+read -p "Do you really want to delete the Dell ControlVault3 Plus driver? (y/N): " removal_confirmation
 
-case $confirmation in
+case $removal_confirmation in
     y | Y | yes | Yes | YES)
         echo ""
 

@@ -6,9 +6,9 @@ echo "Installing Dell ControlVault3 Plus Driver"
 printf %"$(tput cols)"s | tr " " "-"
 echo -e "\n"
 
-read -p "Do you really want to install the latest Dell ControlVault3 Plus driver? (y/N): " confirmation
+read -p "Do you really want to install the latest Dell ControlVault3 Plus driver? (y/N): " install_confirmation
 
-case $confirmation in
+case $install_confirmation in
     y | Y | yes | Yes | YES)
         echo ""
         sudo dnf copr enable grahamwhiteuk/libfprint-tod -y
