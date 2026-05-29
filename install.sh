@@ -24,7 +24,7 @@ case $install_confirmation in
         sudo dnf install fprintd fprintd-pam libfprint-tod -y --allowerasing
 
         BASE_URL="https://packages.broadcom.com/artifactory/dell-controlvault-drivers"
-        ARCHIVE="$(curl -fsSL '$BASE_URL' | grep 'brcm_linux_fp' | sed 's/<[^>]*>//g' | awk '{print $1;}' | sort -V | tail -n 1)"
+        ARCHIVE="$(curl -fsSL "$BASE_URL" | grep 'brcm_linux_fp' | sed 's/<[^>]*>//g' | awk '{print $1;}' | sort -V | tail -n 1)"
 
         if [[ -z "$ARCHIVE" ]]; then
             echo "Could not determine latest driver archive from $BASE_URL" >&2
