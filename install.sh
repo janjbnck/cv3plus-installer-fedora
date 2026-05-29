@@ -39,17 +39,15 @@ case $install_confirmation in
         tar -xf "$ARCHIVE"
         cd brcm_linux_fp
 
-        sudo mkdir -p \
-            /usr/lib64/libfprint-2/tod-1 \
-            /usr/lib/udev/rules.d \
-            /var/lib/fprint/.broadcomCv3plusFW \
-            /usr/share/licenses/libfprint-2-tod1-broadcom-cv3plus
+        sudo install -dm 755 "/usr/lib64/libfprint-2/tod-1/"
+        sudo install -dm 755 "/usr/lib/udev/rules.d/"
+        sudo install -dm 755 "/var/lib/fprint/.broadcomCv3plusFW/"
 
-        sudo install -m 644 ./LICENCE.broadcom /usr/share/licenses/libfprint-2-tod1-broadcom-cv3plus/LICENSE
-
-        sudo install -m 755 ./usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-2-tod-1-broadcom-cv3plus.so /usr/lib64/libfprint-2/tod-1/
-
+        sudo install -Dm 644 ./LICENCE.broadcom "/usr/share/licenses/libfprint-2-tod1-broadcom-cv3plus/LICENSE"
+        sudo install -Dm 755 usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-2-tod-1-broadcom-cv3plus.so "/usr/lib64/libfprint-2/tod-1/"
         sudo install -m 644 ./lib/udev/rules.d/60-libfprint-2-device-broadcom-cv3plus.rules /usr/lib/udev/rules.d/
+        sudo cp -r var/lib/fprint/.broadcomCv3plusFW/* "/var/lib/fprint/.broadcomCv3plusFW/"
+
         sudo udevadm control --reload-rules
         sudo udevadm trigger
 
@@ -77,7 +75,9 @@ EOF
             /usr/lib/udev/rules.d/60-libfprint-2-device-broadcom-cv3plus.rules \
             /var/lib/fprint/.broadcomCv3plusFW
 
-        sudo systemctl restart fprintd
+        sudo systemctl stop fprintd || true
+        sudo /usr/libexec/fprintd
+        sudo systemctl enable --now fprintd
         fprintd-enroll
 
         sudo authselect enable-feature with-fingerprint
