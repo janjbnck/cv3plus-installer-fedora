@@ -13,9 +13,9 @@ read -p "Do you really want to install the latest Dell ControlVault3 Plus driver
 case $install_confirmation in
     y | Y | yes | Yes | YES)
         echo ""
-        sudo dnf install dnf-plugins-core -y
+        sudo dnf install tar curl dnf-plugins-core checkpolicy -y
         sudo dnf copr enable grahamwhiteuk/libfprint-tod -y
-        sudo dnf install tar curl fprintd fprintd-pam libfprint-tod -y --allowerasing
+        sudo dnf install fprintd fprintd-pam libfprint-tod -y --allowerasing
 
         BASE_URL="https://packages.broadcom.com/artifactory/dell-controlvault-drivers"
         ARCHIVE="$(curl -fsSL '$BASE_URL' | grep 'brcm_linux_fp' | sed 's/<[^>]*>//g' | awk '{print $1;}' | sort | tail -n 1)"
