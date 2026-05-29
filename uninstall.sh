@@ -30,11 +30,11 @@ case $removal_confirmation in
         sudo udevadm control --reload-rules
         sudo udevadm trigger
 
-        sudo dnf remove libfprint-tod -y
-        sudo dnf copr remove grahamwhiteuk/libfprint-tod -y
+        sudo dnf remove libfprint-tod -y || true
+        sudo dnf copr remove grahamwhiteuk/libfprint-tod -y || true
         sudo dnf install fprintd -y
 
-        sudo semodule -X 400 -r broadcom-fprintd
+        sudo semodule -X 400 -r broadcom-fprintd || true
 
         sudo systemctl start fprintd
 
