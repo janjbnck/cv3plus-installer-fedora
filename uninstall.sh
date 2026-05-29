@@ -14,7 +14,9 @@ case $removal_confirmation in
     y | Y | yes | Yes | YES)
         echo ""
 
-        sudo fprintd-delete "$USER"
+        if [ -d /var/lib/fprint ]; then
+            while IFS= read -r u; do sudo fprintd-delete "$u" || true; done < <(sudo find /var/lib/fprint -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
+        fi
         sudo systemctl stop fprintd
 
         sudo authselect disable-feature with-fingerprint
