@@ -15,8 +15,8 @@ case $install_confirmation in
         echo ""
 
         if [[ "$(uname -m)" != "x86_64" ]]; then
-             echo "Unsupported architecture: $(uname -m). This installer currently supports x86_64 only." >&2
-             exit 1
+            echo "Unsupported architecture: $(uname -m). This installer currently supports x86_64 only." >&2
+            exit 1
         fi
 
         sudo dnf install tar curl dnf-plugins-core checkpolicy -y
@@ -27,8 +27,8 @@ case $install_confirmation in
         ARCHIVE="$(curl -fsSL '$BASE_URL' | grep 'brcm_linux_fp' | sed 's/<[^>]*>//g' | awk '{print $1;}' | sort -V | tail -n 1)"
 
         if [[ -z "$ARCHIVE" ]]; then
-             echo "Could not determine latest driver archive from $BASE_URL" >&2
-             exit 1
+            echo "Could not determine latest driver archive from $BASE_URL" >&2
+            exit 1
         fi
 
         WORKDIR="$(mktemp -d)"
@@ -72,10 +72,10 @@ EOF
         sudo semodule_package -o broadcom-fprintd.pp -m broadcom-fprintd.mod
         sudo semodule -i broadcom-fprintd.pp
 
-        sudo restorecon -Rv \
-            /usr/lib64/libfprint-2/tod-1 \
-            /usr/lib/udev/rules.d \
-            /var/lib/fprint
+        sudo restorecon -v \
+            /usr/lib64/libfprint-2/tod-1/libfprint-2-tod-1-broadcom-cv3plus.so \
+            /usr/lib/udev/rules.d/60-libfprint-2-device-broadcom-cv3plus.rules \
+            /var/lib/fprint/.broadcomCv3plusFW
 
         sudo systemctl restart fprintd
         fprintd-enroll
