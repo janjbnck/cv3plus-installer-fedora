@@ -22,10 +22,10 @@ case $removal_confirmation in
         sudo authselect disable-feature with-fingerprint
         sudo authselect apply-changes
 
-        sudo rm /usr/lib64/libfprint-2/tod-1/libfprint-2-tod-1-broadcom-cv3plus.so
-        sudo rm /usr/lib/udev/rules.d/60-libfprint-2-device-broadcom-cv3plus.rules
-        sudo rm -r /var/lib/fprint/.broadcomCv3plusFW
-        sudo rm -r /usr/share/licenses/libfprint-2-tod1-broadcom-cv3plus
+        sudo rm -f /usr/lib64/libfprint-2/tod-1/libfprint-2-tod-1-broadcom-cv3plus.so
+        sudo rm -f /usr/lib/udev/rules.d/60-libfprint-2-device-broadcom-cv3plus.rules
+        sudo rm -rf /var/lib/fprint/.broadcomCv3plusFW
+        sudo rm -rf /usr/share/licenses/libfprint-2-tod1-broadcom-cv3plus
 
         sudo udevadm control --reload-rules
         sudo udevadm trigger
