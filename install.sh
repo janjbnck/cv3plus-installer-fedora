@@ -13,6 +13,12 @@ read -p "Do you really want to install the latest Dell ControlVault3 Plus driver
 case $install_confirmation in
     y | Y | yes | Yes | YES)
         echo ""
+
+        if [[ "$(uname -m)" != "x86_64" ]]; then
+             echo "Unsupported architecture: $(uname -m). This installer currently supports x86_64 only." >&2
+             exit 1
+        fi
+
         sudo dnf install tar curl dnf-plugins-core checkpolicy -y
         sudo dnf copr enable grahamwhiteuk/libfprint-tod -y
         sudo dnf install fprintd fprintd-pam libfprint-tod -y --allowerasing
