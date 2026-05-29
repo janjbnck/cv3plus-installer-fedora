@@ -12,7 +12,7 @@ case $removal_confirmation in
     y | Y | yes | Yes | YES)
         echo ""
 
-        sudo fprintd-delete $USER
+        sudo fprintd-delete "$USER"
         sudo systemctl stop fprintd
 
         sudo authselect disable-feature with-fingerprint
