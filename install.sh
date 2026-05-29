@@ -26,9 +26,10 @@ case $install_confirmation in
         fi
 
         WORKDIR="$(mktemp -d)"
+        trap 'rm -rf "$WORKDIR"' EXIT
         cd "$WORKDIR"
 
-        curl -LO "${BASE_URL}/${ARCHIVE}"
+        curl -fL -O "${BASE_URL}/${ARCHIVE}"
         tar -xf "$ARCHIVE"
         cd brcm_linux_fp
 
